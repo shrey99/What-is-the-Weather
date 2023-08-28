@@ -105,9 +105,11 @@ function renderWeatherInfo(weatherInfo)
     cityName.innerText = weatherInfo?.name;
     countryIcon.src = `https://flagcdn.com/144x108/${weatherInfo?.sys?.country.toLowerCase()}.png`;
     desc.innerText = weatherInfo?.weather?.[0]?.description;
-    weatherIcon.src = `http://openweathermap.org/img/w/${weatherInfo?.weather?.[0]?.icon}.png`;
+    // weatherIcon.src = `http://openweathermap.org/img/w/${weatherInfo?.weather?.[0]?.icon}.png`;
+    weatherIcon.src = `https://openweathermap.org/img/wn/${weatherInfo?.weather?.[0]?.icon}.png`;
+    
     temp.innerText = `${weatherInfo?.main?.temp} °C`;
-    windspeed.innerText = `${weatherInfo?.wind?.speed} m/s`;
+    windspeed.innerText = `${weatherInfo?.wind?.speed} M/S`;
     humidity.innerText = `${weatherInfo?.main?.humidity}%`;
     cloudiness.innerText = `${weatherInfo?.clouds?.all}%`;
 }
@@ -167,12 +169,23 @@ async function fetchSearchWeatherInfo(city)
         const response = await fetch(`https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${API_KEY}&units=metric`);
         const data = await response.json();
         loadingScreen.classList.remove("active");
-        userInfoContainer.classList.add("active");
-        renderWeatherInfo(data);
+        // if(!data.weatherInfo?.name != `${city}`)
+        // {
+        //     loadingScreen.classList.remove("active");
+            
+
+        // }
+        // else{
+            userInfoContainer.classList.add("active");
+            renderWeatherInfo(data);
+        // }
+        
+
     }
     catch(error)
     {
         //HW
+        // userInfoContainer.classList.remove("active");
     }
 }
         
